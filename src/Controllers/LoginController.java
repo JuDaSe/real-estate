@@ -2,15 +2,15 @@ package Controllers;
 
 import models.LoginModel;   
 import models.UserModel;
-import view.InicioApp;
-import view.Login;
+import view.InicioView;
+import view.LoginView;
 
 public class LoginController {
     private LoginModel model;
-    private Login view;
+    private LoginView view;
     
     
-    public LoginController(LoginModel model, Login view){
+    public LoginController(LoginModel model, LoginView view){
         this.model = model;
         this.view = view;
         
@@ -24,8 +24,8 @@ public class LoginController {
         
         if(model.auth(emailUser, passwordUser)){
             view.setMensaje("Login exitoso");
-            new InicioApp();
-            InicioApp inicio = new InicioApp();
+            new InicioView();
+            InicioView inicio = new InicioView();
             inicio.setVisible(true);
             view.dispose();
         } else {

@@ -13,18 +13,18 @@ public class LoginModel {
     public boolean auth(String email, String password){
         String query = "SELECT * FROM administrator WHERE email = ? AND passwrd = ?";
         
-               try (Connection conn = DriverManager.getConnection(DB_URL, email, password);
+               try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASSWORD);
              PreparedStatement stmt = conn.prepareStatement(query)) {
              
             stmt.setString(1, email);
             stmt.setString(2, password);
             ResultSet rs = stmt.executeQuery();
 
-            return rs.next(); // Si hay un resultado, las credenciales son correctas
+            return rs.next();
 
         } catch (Exception e) {
             e.printStackTrace();
-            return false; // Devuelve false si hay un error
+            return false; 
         }
     }
 }
