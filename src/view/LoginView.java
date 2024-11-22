@@ -2,16 +2,23 @@
 package view;
 
 import Controllers.Images;
+import Controllers.LoginController;
+import java.awt.Color;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
+import models.LoginModel;
 import models.UserModel;
 
 public class LoginView extends javax.swing.JFrame {
 
     public LoginView() {
         initComponents();
-        iAmGuest_btn.setOpaque(true);
-        Images imagenLogin = new Images(etiquetaImagen_Login, "/view/images/imgLogin.png", (etiquetaImagen_Login.getWidth()), etiquetaImagen_Login.getHeight());
+        Images imagenLogin = new Images(logoLogin, "/view/images/fototecho.png", (logoLogin.getWidth()), logoLogin.getHeight());
+        textFieldEmail.setOpaque(false);
+        textFieldPassword.setOpaque(false);
+        rememberMe.setOpaque(false);
+        textFieldEmail.setBackground(new Color(255, 0 ,0 , 10));
+        
         
     }
 
@@ -25,72 +32,89 @@ public class LoginView extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        LoginBtn = new javax.swing.JButton();
         textFieldPassword = new javax.swing.JTextField();
         textFieldEmail = new javax.swing.JTextField();
-        etiquetaImagen_Login = new javax.swing.JLabel();
+        separadorUsuario = new javax.swing.JSeparator();
         rememberMe = new javax.swing.JCheckBox();
-        jSeparator1 = new javax.swing.JSeparator();
-        jSeparator2 = new javax.swing.JSeparator();
-        jSeparator3 = new javax.swing.JSeparator();
+        separadorContraseña = new javax.swing.JSeparator();
+        LoginBtn = new javax.swing.JButton();
+        LoginBtn1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        iAmGuest_btn = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        logoLogin = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMaximumSize(new java.awt.Dimension(679, 510));
+        setResizable(false);
 
-        jPanel1.setBackground(new java.awt.Color(0, 102, 153));
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        LoginBtn.setText("Iniciar Sesión");
-        jPanel1.add(LoginBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 260, 300, -1));
-
-        textFieldPassword.setBackground(new java.awt.Color(0, 102, 153));
+        textFieldPassword.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         textFieldPassword.setToolTipText("");
         textFieldPassword.setBorder(null);
-        jPanel1.add(textFieldPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 190, 300, -1));
+        jPanel1.add(textFieldPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 250, 300, -1));
 
-        textFieldEmail.setBackground(new java.awt.Color(0, 102, 153));
+        textFieldEmail.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         textFieldEmail.setBorder(null);
-        jPanel1.add(textFieldEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 110, 300, -1));
-
-        etiquetaImagen_Login.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        etiquetaImagen_Login.setText("loginImage");
-        jPanel1.add(etiquetaImagen_Login, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 490, 430));
-
-        rememberMe.setBackground(new java.awt.Color(0, 102, 153));
-        rememberMe.setForeground(new java.awt.Color(255, 255, 255));
-        rememberMe.setText("Recordarme");
-        jPanel1.add(rememberMe, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 230, -1, -1));
-        jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 130, 260, 0));
-        jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 210, 310, 10));
-        jPanel1.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 130, 310, 10));
-
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Contraseña");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 160, -1, -1));
-
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("Email");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 80, -1, -1));
-
-        iAmGuest_btn.setBackground(new java.awt.Color(0, 102, 153));
-        iAmGuest_btn.setFont(new java.awt.Font("Tahoma", 2, 14)); // NOI18N
-        iAmGuest_btn.setText("Entrar como Invitado");
-        iAmGuest_btn.setBorder(null);
-        iAmGuest_btn.setBorderPainted(false);
-        iAmGuest_btn.addActionListener(new java.awt.event.ActionListener() {
+        textFieldEmail.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                iAmGuest_btnActionPerformed(evt);
+                textFieldEmailActionPerformed(evt);
             }
         });
-        jPanel1.add(iAmGuest_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 230, -1, -1));
+        jPanel1.add(textFieldEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 170, 300, -1));
+
+        separadorUsuario.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(0, 0, 0), java.awt.Color.black, new java.awt.Color(0, 0, 0), new java.awt.Color(0, 0, 0)));
+        separadorUsuario.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jPanel1.add(separadorUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 190, 310, -1));
+
+        rememberMe.setBackground(new java.awt.Color(255, 255, 255));
+        rememberMe.setFont(new java.awt.Font("Graphik Regular", 0, 14)); // NOI18N
+        rememberMe.setText("Recordarme");
+        jPanel1.add(rememberMe, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 290, -1, -1));
+
+        separadorContraseña.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(0, 0, 0), java.awt.Color.black, new java.awt.Color(0, 0, 0), new java.awt.Color(0, 0, 0)));
+        separadorContraseña.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jPanel1.add(separadorContraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 270, 310, -1));
+
+        LoginBtn.setBackground(new java.awt.Color(204, 204, 204));
+        LoginBtn.setFont(new java.awt.Font("Graphik Regular", 0, 14)); // NOI18N
+        LoginBtn.setText("Ingresar");
+        jPanel1.add(LoginBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 340, 110, 40));
+
+        LoginBtn1.setBackground(new java.awt.Color(204, 204, 204));
+        LoginBtn1.setFont(new java.awt.Font("Graphik Regular", 0, 14)); // NOI18N
+        LoginBtn1.setText("Volver");
+        jPanel1.add(LoginBtn1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 340, 110, 40));
+
+        jLabel1.setFont(new java.awt.Font("Graphik Regular", 0, 14)); // NOI18N
+        jLabel1.setText("CONTRASEÑA");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 220, -1, -1));
+
+        jLabel2.setFont(new java.awt.Font("Graphik Regular", 0, 14)); // NOI18N
+        jLabel2.setText("USUARIO");
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 140, -1, -1));
+
+        jLabel3.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel3.setFont(new java.awt.Font("Graphik Regular", 0, 36)); // NOI18N
+        jLabel3.setText("BIENVENIDO USUARIO");
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, -1, -1));
+
+        logoLogin.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        logoLogin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/images/fototecho.png"))); // NOI18N
+        logoLogin.setText("Logo");
+        logoLogin.setToolTipText("");
+        jPanel1.add(logoLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 680, 510));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 679, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -100,9 +124,9 @@ public class LoginView extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void iAmGuest_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_iAmGuest_btnActionPerformed
+    private void textFieldEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldEmailActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_iAmGuest_btnActionPerformed
+    }//GEN-LAST:event_textFieldEmailActionPerformed
 
     /**
      * @param args the command line arguments
@@ -156,15 +180,15 @@ public class LoginView extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton LoginBtn;
-    private javax.swing.JLabel etiquetaImagen_Login;
-    private javax.swing.JButton iAmGuest_btn;
+    private javax.swing.JButton LoginBtn1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JLabel logoLogin;
     private javax.swing.JCheckBox rememberMe;
+    private javax.swing.JSeparator separadorContraseña;
+    private javax.swing.JSeparator separadorUsuario;
     private javax.swing.JTextField textFieldEmail;
     private javax.swing.JTextField textFieldPassword;
     // End of variables declaration//GEN-END:variables
