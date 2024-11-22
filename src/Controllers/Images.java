@@ -1,11 +1,9 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package Controllers;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import java.awt.Image;
 
 import javax.swing.*;
 import java.net.URL;
@@ -17,7 +15,7 @@ public class Images extends JPanel {
                 URL imageUrl = getClass().getResource(rutaImagen);
                 if (imageUrl == null) {
                     System.err.println("Error: No se pudo encontrar la imagen en " + rutaImagen);
-                    return; // O lanzar una excepción si es necesario
+                    return; 
                 }
 
                 Icon mIcono = new ImageIcon(new ImageIcon(imageUrl).getImage()
@@ -25,8 +23,16 @@ public class Images extends JPanel {
                 etiquetaImagen.setIcon(mIcono);
             } catch (Exception e) {
                 System.err.println("Error al cargar la imagen: " + e.getMessage());
-                // Manejar la excepción de forma adecuada (mostrar un mensaje al usuario, etc.)
             }
         }
+        
+        public ImageIcon ResizeImage(String ImagePath, JLabel label)
+        {
+        ImageIcon MyImage = new ImageIcon(ImagePath);
+        Image img = MyImage.getImage();
+        Image newImg = img.getScaledInstance(label.getWidth(), label.getHeight(), Image.SCALE_SMOOTH);
+        ImageIcon image = new ImageIcon(newImg);
+        return image;
+    }
     
 }

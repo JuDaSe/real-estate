@@ -19,8 +19,8 @@ public class LoginController {
     
     public void authUser(){
         UserModel user = view.getAccount();
-        String emailUser = user.getEmail(); // Accede al correo electrónico
-        String passwordUser = user.getPassword(); // Accede a la contraseña
+        String emailUser = user.getEmail();
+        String passwordUser = user.getPassword();
         
         if(model.auth(emailUser, passwordUser)){
             view.setMensaje("Login exitoso");
