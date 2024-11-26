@@ -27,7 +27,7 @@ public class UsuarioVista extends javax.swing.JFrame {
     }
 
   private void cargarIdsPropiedades() {
-        String sql = "SELECT id FROM property";
+        String sql = "SELECT id FROM property WHERE isPaused = false";
         try (Connection conn = ConnectMySQL.getConnection();
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
@@ -60,7 +60,7 @@ public class UsuarioVista extends javax.swing.JFrame {
     }
 
     private void cargarSiguientePropiedad() {
-         if (propertyIds.isEmpty()) {
+         if (propertyIds.isEmpty() && currentProperty.getPaused() == true) {
             JOptionPane.showMessageDialog(this, "No hay propiedades en la base de datos.");
             return;
             }
@@ -99,6 +99,7 @@ public class UsuarioVista extends javax.swing.JFrame {
                     rs.getString("type"),
                     rs.getString("agent"), 
                     rs.getBytes("images"),
+                    rs.getBoolean("isPaused"),
                     rs.getInt("id")    
                 );
 

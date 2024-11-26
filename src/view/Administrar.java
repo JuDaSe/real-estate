@@ -114,6 +114,7 @@ public class Administrar extends javax.swing.JFrame {
         anteriorAdministrar = new javax.swing.JLabel();
         siguienteAdmininistrar = new javax.swing.JLabel();
         back_btn = new javax.swing.JLabel();
+        labelPausa = new javax.swing.JLabel();
         AdministrarLabel = new javax.swing.JLabel();
         BorrarPAdministrar = new javax.swing.JLabel();
         PausarPAdministrar = new javax.swing.JLabel();
@@ -163,6 +164,10 @@ public class Administrar extends javax.swing.JFrame {
         });
         panelAdministrar.add(back_btn, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 480, 70, 40));
 
+        labelPausa.setFont(new java.awt.Font("Graphik Regular", 0, 14)); // NOI18N
+        labelPausa.setText("Esta pausado");
+        panelAdministrar.add(labelPausa, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 320, -1, -1));
+
         AdministrarLabel.setFont(new java.awt.Font("Graphik Regular", 1, 24)); // NOI18N
         AdministrarLabel.setText("ADMINISTRAR");
         panelAdministrar.add(AdministrarLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
@@ -182,6 +187,11 @@ public class Administrar extends javax.swing.JFrame {
         PausarPAdministrar.setFont(new java.awt.Font("Graphik Regular", 1, 14)); // NOI18N
         PausarPAdministrar.setText("Pausar Publicación");
         PausarPAdministrar.setOpaque(true);
+        PausarPAdministrar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                PausarPAdministrarMouseClicked(evt);
+            }
+        });
         panelAdministrar.add(PausarPAdministrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 310, -1, 30));
 
         EditarPAdministrar.setBackground(new java.awt.Color(204, 204, 204));
@@ -237,6 +247,34 @@ public class Administrar extends javax.swing.JFrame {
          JOptionPane.showMessageDialog(this, "Elemento eliminado");
     }//GEN-LAST:event_BorrarPAdministrarMouseClicked
 
+    private void PausarPAdministrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PausarPAdministrarMouseClicked
+      
+         if (currentProperty != null) {
+         int id = propertyIds.get(currentIndex);
+         boolean isPaused = !currentProperty.getPaused();
+         System.out.println("Estado actual: " + currentProperty.getPaused());
+         if(currentProperty.getPaused() == false){
+            String ps = "<html><body style='color:red;'>Pausado</body></html>";
+            labelPausa.setText(ps);
+         } else {
+             String ps = "<html><body style='color:green;'>En vista</body></html>";
+             labelPausa.setText(ps);
+         }
+         
+         
+
+         currentProperty.actualizarDatos(isPaused, id);
+         currentProperty.sincronizarEstado(id);
+
+         System.out.println("Parámetros enviados: isPaused = " + isPaused + ", idProperty = " + id);
+         if (isPaused) {
+             JOptionPane.showMessageDialog(this, "Casa pausada");
+         } else {
+             JOptionPane.showMessageDialog(this, "Casa despausada");
+         }
+     }
+    }//GEN-LAST:event_PausarPAdministrarMouseClicked
+
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -254,6 +292,7 @@ public class Administrar extends javax.swing.JFrame {
     private javax.swing.JLabel back_btn;
     private javax.swing.JLabel imageBackground;
     private javax.swing.JLabel imageProperty;
+    private javax.swing.JLabel labelPausa;
     private javax.swing.JPanel panelAdministrar;
     private javax.swing.JLabel siguienteAdmininistrar;
     private javax.swing.JLabel ubicationLabelAdministrar;

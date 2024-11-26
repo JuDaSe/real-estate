@@ -14,6 +14,7 @@ import java.util.HashSet;
 import javax.imageio.ImageIO;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import models.PropertyModel;
 
 /**
@@ -199,7 +200,8 @@ public class EditPropertyView extends javax.swing.JFrame {
     boolean enRenta = inRentalProperty.isSelected();
     boolean enVenta = isSaleProperty.isSelected();
     String tipo = String.valueOf(typeProperty.getSelectedItem());
-    String dueño = ownerProperty.getText();       
+    String dueño = ownerProperty.getText();
+    boolean isPaused = false;
 
     byte[] imageBytes = null;
     Icon icon = setPropertyImage.getIcon();
@@ -207,6 +209,7 @@ public class EditPropertyView extends javax.swing.JFrame {
         BufferedImage bufferedImage = iconToBufferedImage(icon);
         imageBytes = bufferedImageToByteArray(bufferedImage, "png");
         PropertyModel propiedadAdd = new PropertyModel();
+        
         propiedadAdd.setSize(tamaño);
         propiedadAdd.setOwner(dueño);
         propiedadAdd.setDescription(descripcion);
@@ -216,8 +219,11 @@ public class EditPropertyView extends javax.swing.JFrame {
         propiedadAdd.setIsRental(enRenta);
         propiedadAdd.setIsSale(enVenta);
         propiedadAdd.setType(tipo);
-        propiedadAdd.actualizarDatos(precio, descripcion, tamaño, locacion, enRenta, enVenta, tipo, dueño, imageBytes, idPropiedad);
+        propiedadAdd.setPaused(false);
+        
+        propiedadAdd.actualizarDatos(precio, descripcion, tamaño, locacion, enRenta, enVenta, tipo, dueño, imageBytes, isPaused, idPropiedad);
         System.out.println("Archivos guardados");
+        JOptionPane.showMessageDialog(this, "Propiedad agregada");
     } else {
         System.out.println("No hay imagen seleccionada en el JLabel.");
     }

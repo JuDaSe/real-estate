@@ -14,6 +14,7 @@ import java.util.HashSet;
 import javax.imageio.ImageIO;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import models.PropertyModel;
 
 /**
@@ -216,12 +217,12 @@ public class AddPropertyView extends javax.swing.JFrame {
         propiedadAdd.setIsSale(enVenta);
         propiedadAdd.setType(tipo);
         propiedadAdd.guardarBaseDatos();
-        System.out.println("Archivos guardados - 1");
+        System.out.println("Archivos guardados");
+        JOptionPane.showMessageDialog(this,"Archivos guardados");
     } else {
         System.out.println("No hay imagen seleccionada en el JLabel.");
     }
     
-    System.out.println("Archivos guardados - 2");
         
     }//GEN-LAST:event_AgregarPropertyActionPerformed
 

@@ -87,6 +87,11 @@ public class LoginView extends javax.swing.JFrame {
         LoginBtn1.setBackground(new java.awt.Color(204, 204, 204));
         LoginBtn1.setFont(new java.awt.Font("Graphik Regular", 0, 14)); // NOI18N
         LoginBtn1.setText("Volver");
+        LoginBtn1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                LoginBtn1ActionPerformed(evt);
+            }
+        });
         jPanel1.add(LoginBtn1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 340, 110, 40));
 
         jLabel1.setFont(new java.awt.Font("Graphik Regular", 0, 14)); // NOI18N
@@ -127,6 +132,12 @@ public class LoginView extends javax.swing.JFrame {
     private void textFieldEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldEmailActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_textFieldEmailActionPerformed
+
+    private void LoginBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginBtn1ActionPerformed
+        Panel ventana = new Panel();
+        ventana.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_LoginBtn1ActionPerformed
 
     /**
      * @param args the command line arguments

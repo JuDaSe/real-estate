@@ -19,6 +19,7 @@ public class PropertyModel {
     private boolean isSale;
     private String type;
     private byte[] images;
+    private boolean isPaused;
     
     
      public PropertyModel(Double precio, String descripcion, int id, String locacion, boolean enRenta, boolean enVenta, String tipo, String dueño, byte[] imageBytes) {
@@ -59,11 +60,17 @@ public class PropertyModel {
     public void setImages(byte[] images) {
         this.images = images;
     }
-     
-     
+    
+    public void setPaused(boolean isPaused){
+        this.isPaused = isPaused;
+    }
+    
+    public boolean getPaused(){
+        return isPaused;
+    }   
      
     public int getId() {
-        return id;  // Solo devuelve el ID, sin cargar datos
+        return id;
     }
             // Getters
     public double getPrice() {
@@ -121,7 +128,7 @@ public class PropertyModel {
     }
     
     public void guardarBaseDatos(){
-        String sql = "INSERT INTO property(ID, price, description, size, location, isRental, isSale, type, agent, images) VALUES (?, ?,?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO property(ID, price, description, size, location, isRental, isSale, type, agent, images, isPaused) VALUES (?, ?,?,?,?,?,?,?,?,?,?)";
         
         try (Connection conn = ConnectMySQL.getConnection();
             PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -136,6 +143,7 @@ public class PropertyModel {
             pstmt.setString(8, this.type);
             pstmt.setString(9, this.owner);
             pstmt.setBytes(10, this.images);
+            pstmt.setBoolean(11, this.isPaused);
             pstmt.executeUpdate();
             
             System.out.println("Propiedad guardada en la base de datos");
@@ -146,8 +154,8 @@ public class PropertyModel {
     }
     
     // precio, descripcion, tamaño, locacion, enRenta, enVenta, tipo, dueño, imageBytes
-    public void actualizarDatos(double precio, String descripcion, int tamaño, String locacion, boolean enRenta, boolean enVenta, String tipo,String dueño,byte[] imageBytes, int idProperty){
-        String sql = "UPDATE property SET price = ?, description = ?, size = ?, location = ?, isRental = ?, isSale = ?, type = ?, agent = ?, images = ? WHERE id = ?";
+    public void actualizarDatos(double precio, String descripcion, int tamaño, String locacion, boolean enRenta, boolean enVenta, String tipo,String dueño,byte[] imageBytes, boolean isPaused, int idProperty){
+        String sql = "UPDATE property SET price = ?, description = ?, size = ?, location = ?, isRental = ?, isSale = ?, type = ?, agent = ?, images = ?, isPaused = ? WHERE id = ?";
         
         try (Connection conn = ConnectMySQL.getConnection();
             PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -161,7 +169,41 @@ public class PropertyModel {
             pstmt.setString(7, tipo);
             pstmt.setString(8, dueño);
             pstmt.setBytes(9, imageBytes);
-            pstmt.setInt(10, idProperty);
+            pstmt.setInt(10, isPaused ? 1 : 0);
+            pstmt.setInt(11, idProperty);
+            pstmt.executeUpdate();
+            
+            JOptionPane.showMessageDialog(null, "Propiedad actualizada en la base de datos!");
+            
+        } catch(SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al actualizar la propiedad: " + e.getMessage());
+            System.err.println(e);
+        }
+    }
+    
+        public void sincronizarEstado(int idProperty) {
+        String sql = "SELECT isPaused FROM property WHERE id = ?";
+        try (Connection conn = ConnectMySQL.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1, idProperty);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                this.isPaused = rs.getBoolean("isPaused");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public void actualizarDatos(boolean isPaused, int idProperty){
+        String sql = "UPDATE property SET isPaused = ? WHERE id = ?";
+        
+        try (Connection conn = ConnectMySQL.getConnection();
+            PreparedStatement pstmt = conn.prepareStatement(sql)) {
+           
+            pstmt.setBoolean(1, isPaused);
+            pstmt.setInt(2, idProperty);
             pstmt.executeUpdate();
             
             JOptionPane.showMessageDialog(null, "Propiedad actualizada en la base de datos!");
@@ -207,6 +249,7 @@ public class PropertyModel {
                   this.type = rs.getString("type");
                   this.owner = rs.getString("agent");
                   this.images = rs.getBytes("images");
+                  this.isPaused = rs.getBoolean("isPaused");
                   JOptionPane.showConfirmDialog(null, "Propiedad cargada desde la base de datos");
               } else {
                   JOptionPane.showConfirmDialog(null, "Propiedad con ID " + id + " no encontrada.");
@@ -228,7 +271,7 @@ public class PropertyModel {
         }
         
         public PropertyModel(double price, String description, int size,
-            String location, boolean isRental, boolean isSale, String type, String owner,byte[] images, int id) {
+            String location, boolean isRental, boolean isSale, String type, String owner,byte[] images, boolean isPaused, int id) {
         this.price = price;
         this.description = description;
         this.size = size;
@@ -238,13 +281,12 @@ public class PropertyModel {
         this.type = type;
         this.owner = owner;
         this.images = images;
+        this.isPaused = isPaused;
         this.id = id;
-        
-        guardarBaseDatos();
     }     
         
         public PropertyModel(double price, String description, int size,
-            String location, boolean isRental, boolean isSale, String type, String owner,byte[] images) {
+            String location, boolean isRental, boolean isSale, String type, String owner,byte[] images, boolean isPaused) {
         this.price = price;
         this.description = description;
         this.size = size;
@@ -254,6 +296,7 @@ public class PropertyModel {
         this.type = type;
         this.owner = owner;
         this.images = images;
+        this.isPaused = isPaused;
         
         guardarBaseDatos();
     }       
